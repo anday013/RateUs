@@ -11,6 +11,6 @@ export const redirectToStorePage = async () => {
       );
     }
   } catch (err) {
-    console.log('ERR: Store page could not been opened');
+    console.log('ERR: Store page could not been opened:', err);
   }
 };

@@ -5,7 +5,7 @@ export const storeObject = async (key: string, value: object) => {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(key, jsonValue);
   } catch (e) {
-    console.log('Async storage store object error');
+    console.log('Async storage store object error: ', e);
   }
 };
 
@@ -14,7 +14,7 @@ export const getObject = async (key: string): Promise<any> => {
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
-    console.log('Async storage read object error');
+    console.log('Async storage read object error: ', e);
   }
 };
 
@@ -25,6 +25,6 @@ export const clearStorage = async () => {
   try {
     await AsyncStorage.clear();
   } catch (e) {
-    console.log('Err: Async storage error during clear process');
+    console.log('Err: Async storage error during clear process:', e);
   }
 };
