@@ -30,19 +30,25 @@ export default function ControlRateModal({
     closeModal();
   }, [closeModal]);
 
-  const handleRating = useCallback((numberOfStars: number) => {
-    if (numberOfStars > 3) {
-      setIsModalExpanded(false);
-      redirectToStorePage();
-    } else {
-      setIsModalExpanded(true);
-    }
-  }, []);
+  const handleRating = useCallback(
+    (numberOfStars: number) => {
+      if (numberOfStars > 3) {
+        setIsModalExpanded(false);
+        onClose();
+        redirectToStorePage();
+      } else {
+        setIsModalExpanded(true);
+      }
+    },
+    [onClose],
+  );
 
   const onSubmit = useCallback(() => {
-    //TODO: send text
+    //TODO: send text to backend
     onRate();
-  }, [onRate]);
+    onClose();
+    redirectToStorePage();
+  }, [onRate, onClose]);
 
   const FeedbackPart = useMemo(
     () => (

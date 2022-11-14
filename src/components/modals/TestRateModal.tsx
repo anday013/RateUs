@@ -1,22 +1,37 @@
 import {View, Text, Pressable, Image, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import React, {useCallback} from 'react';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {redirectToStorePage} from '../../helpers/linkings';
 
 type Props = {
   isVisible: boolean;
   onClose: () => any;
   onRate: () => any;
+  navigation: StackNavigationProp<any>;
 };
 
 export default function TestRateModal({
   isVisible,
   onClose: closeModal,
   onRate,
+  navigation,
 }: Props) {
   const onClose = useCallback(() => {
-    // TODO: Redirect to another screen
+    // Send to backend
     closeModal();
   }, [closeModal]);
+
+  const handleRateUs = useCallback(() => {
+    onRate();
+    redirectToStorePage();
+  }, [onRate]);
+
+  const handleNotYet = useCallback(() => {
+    onRate();
+    closeModal();
+    navigation.navigate('ContactUs');
+  }, [closeModal, onRate, navigation]);
   return (
     <Modal isVisible={isVisible}>
       <View style={styles.modalContainer}>
@@ -32,10 +47,10 @@ export default function TestRateModal({
             Your App Store review {'\n'} greatly helps spread the word and
             {'\n'} grow the racket sports community!
           </Text>
-          <Pressable style={styles.modalMainButton} onPress={onRate}>
+          <Pressable style={styles.modalMainButton} onPress={handleRateUs}>
             <Text style={styles.modalMainButtonText}>Rate Us</Text>
           </Pressable>
-          <Pressable style={styles.modalFooter} onPress={onClose}>
+          <Pressable style={styles.modalFooter} onPress={handleNotYet}>
             <Text style={styles.modalFooterText}>
               Not yet? Give us feedback
             </Text>

@@ -7,5 +7,9 @@ export const APP_STORE_URL = isIOS
   : 'market://details?id=com.racketpal';
 
 export const STORAGE = {
-  AB_TESTING: 'AB_TESTING',
+  RATE_DATA: 'RATE_DATA',
+};
+
+export const DATE = {
+  DAY_IN_MILLIS: 24 * 3600 * 1000,
 };

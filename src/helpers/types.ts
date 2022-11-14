@@ -1,9 +1,9 @@
-export enum ABTestingVariation {
+export enum RateTestingVariations {
   Control,
   Test,
 }
 
-export type StorageABTestingObjectType = {
+export type RateData = {
   joinedTime: number;
   numberOfShowedTimes: number;
   lastSeenTime: number;

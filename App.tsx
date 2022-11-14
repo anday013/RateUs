@@ -12,7 +12,7 @@ import React from 'react';
 import {StatusBar, StyleSheet, useColorScheme, View} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import HomeScreen from './src/screens/HomeScreen';
+import Navigator from './src/screens/Navigator';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -26,7 +26,7 @@ const App = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <HomeScreen />
+      <Navigator />
     </View>
   );
 };

@@ -1,49 +1,41 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {ABTestingVariation} from '../helpers/types';
-import {useExperiment} from '../hooks/useExperiment';
-import usePrevious from '../hooks/usePrevious';
+import React, {useCallback} from 'react';
+import {RateTestingVariations} from '../helpers/types';
+import {useRate} from '../hooks/useRate';
 import ControlRateModal from './modals/ControlRateModal';
 import TestRateModal from './modals/TestRateModal';
+import {useModal} from '../hooks/useModal';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-type Props = {};
+type Props = {
+  navigation: StackNavigationProp<any>;
+};
 
-const ExperimentRate: React.FC<Props> = ({}) => {
-  const {experimentType, incrementABTest, rateABTest, onExit} = useExperiment();
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const showModal = useCallback(() => {
-    setIsModalVisible(prevState => !prevState);
-  }, [setIsModalVisible]);
-
-  const prevIsModalVisible = usePrevious(isModalVisible);
+const ExperimentRate: React.FC<Props> = ({navigation}) => {
+  const {experimentType, onRate, onExit, canBeShown} = useRate();
+  const {isModalVisible, toggleModal} = useModal(false, canBeShown);
 
   const onClose = useCallback(() => {
     onExit();
-    showModal();
-  }, [onExit, showModal]);
-
-  useEffect(() => {
-    if (prevIsModalVisible === false && isModalVisible) {
-      console.log('VIEWED');
-      incrementABTest();
-    }
-  }, [isModalVisible, prevIsModalVisible, incrementABTest]);
+    toggleModal();
+  }, [onExit, toggleModal]);
 
   switch (experimentType) {
-    case ABTestingVariation.Control:
+    case RateTestingVariations.Control:
       return (
         <ControlRateModal
           isVisible={isModalVisible}
           onClose={onClose}
-          onRate={rateABTest}
+          onRate={onRate}
         />
       );
 
-    case ABTestingVariation.Test:
+    case RateTestingVariations.Test:
       return (
         <TestRateModal
           isVisible={isModalVisible}
           onClose={onClose}
-          onRate={rateABTest}
+          onRate={onRate}
+          navigation={navigation}
         />
       );
   }

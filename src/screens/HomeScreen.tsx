@@ -1,20 +1,17 @@
-import React, {useCallback, useState} from 'react';
-import {
-  Button,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React from 'react';
+import {Button, StyleSheet, View} from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import ExperimentRate from '../components/ExperimentRate';
 import {clearStorage} from '../services/storage';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-const HomeScreen = () => {
+type Props = {
+  navigation: StackNavigationProp<any>;
+};
+const HomeScreen = ({navigation}: Props) => {
   return (
     <>
-      <ExperimentRate />
+      <ExperimentRate navigation={navigation} />
       <View style={styles.buttonContainer}>
         <Button title="Clear Async Storage" onPress={clearStorage} />
       </View>

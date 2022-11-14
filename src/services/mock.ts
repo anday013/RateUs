@@ -1,7 +1,7 @@
-import {ABTestingVariation} from '../helpers/types';
+import {RateTestingVariations} from '../helpers/types';
 
-const MOCK_CONFIG: {experiment: ABTestingVariation} = {
-  experiment: ABTestingVariation.Test,
+const MOCK_CONFIG: {experiment: RateTestingVariations} = {
+  experiment: RateTestingVariations.Test,
 };
 export const USER_JOINED = new Date(2022, 0).getTime();
 
